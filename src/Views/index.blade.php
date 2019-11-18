@@ -168,6 +168,9 @@
                             @if (config('visitlog.delete_log_button'))
                                 <th>Action</th>
                             @endif
+                            @if (config('visitlog.ban_user_ip_button'))
+                                <th>Ban User</th>
+                            @endif
                         </tr>
                     </thead>
 
@@ -183,6 +186,9 @@
                             <th>Updated</th>
                             @if (config('visitlog.delete_log_button'))
                                 <th>Action</th>
+                            @endif
+                            @if (config('visitlog.ban_user_ip_button'))
+                                <th>Ban User</th>
                             @endif
                         </tr>
                     </tfoot>
@@ -207,6 +213,24 @@
                                         rel="{{route('__delete_visitlog__', ['id'=>$visitlog->id])}}"
                                         href="javascript:void(0);">
                                             <b class="glyphicon glyphicon-trash"></b>
+                                        </a>
+                                    </td>
+                                @endif
+                                {{-- possibility to ban a User --}}
+                                @if (config('visitlog.ban_user_ip_button'))
+                                    <td align="center">
+                                        <a title="Ban"
+                                        class="
+                                        @if($visitlog->is_banned)confirm-ban text-success @else confirm-ban text-danger @endif"
+                                        data-label="Visit Log"
+                                        rel="{{ route('__ban_or_unban_user_ip__', ['id' => $visitlog->id]) }}"
+                                        href="javascript:void(0);">
+                                            @if($visitlog->is_banned)
+                                            <b class="glyphicon glyphicon-ok text-success"></b>
+
+                                            @else
+                                            <b class="glyphicon glyphicon-remove"></b>
+                                            @endif
                                         </a>
                                     </td>
                                 @endif
